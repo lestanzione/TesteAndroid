@@ -5,6 +5,7 @@ import android.app.Application;
 import br.com.stanzione.testeandroid.di.ApplicationComponent;
 import br.com.stanzione.testeandroid.di.DaggerApplicationComponent;
 import br.com.stanzione.testeandroid.di.NetworkModule;
+import br.com.stanzione.testeandroid.form.FormModule;
 
 public class App extends Application {
 
@@ -14,6 +15,7 @@ public class App extends Application {
         super.onCreate();
         applicationComponent = DaggerApplicationComponent.builder()
                 .networkModule(new NetworkModule())
+                .formModule(new FormModule())
                 .build();
     }
 

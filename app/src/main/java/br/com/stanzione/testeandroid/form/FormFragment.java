@@ -8,9 +8,15 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
+import javax.inject.Inject;
+
+import br.com.stanzione.testeandroid.App;
 import br.com.stanzione.testeandroid.R;
 
-public class FormFragment extends Fragment {
+public class FormFragment extends Fragment implements FormContract.View {
+
+    @Inject
+    FormContract.Presenter presenter;
 
     public FormFragment() {}
 
@@ -27,7 +33,14 @@ public class FormFragment extends Fragment {
 
     @Override
     public void onAttach(Context context) {
+        setupInjector(context);
         super.onAttach(context);
+    }
+
+    @Override
+    public void onStart() {
+        presenter.getFormFields();
+        super.onStart();
     }
 
     @Override
@@ -35,4 +48,16 @@ public class FormFragment extends Fragment {
         super.onDetach();
     }
 
+    @Override
+    public void setProgressBarVisible(boolean visible) {
+
+    }
+
+    private void setupInjector(Context context){
+        ((App) (context.getApplicationContext()))
+                .getApplicationComponent()
+                .inject(this);
+
+        presenter.attachView(this);
+    }
 }

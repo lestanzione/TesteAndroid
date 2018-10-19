@@ -1,6 +1,6 @@
 package br.com.stanzione.testeandroid;
 
-public interface BasePresenter {
-    void attachView(BaseView view);
+public interface BasePresenter<T extends BaseView> {
+    void attachView(T view);
     void dispose();
 }
